@@ -1,0 +1,4 @@
+*.o
+*.d
+*.out
+so_long
