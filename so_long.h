@@ -11,4 +11,6 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
+void	puterror(char *error_msg, int exit_code);
+char	**parsing(t_map *map);
 #endif
