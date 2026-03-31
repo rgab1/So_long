@@ -3,12 +3,11 @@ CC			= cc
 C_FLAGS		= -Wall -Wextra -Werror
 C_FLAGS		+= -Imlx
 CPP_FLAGS	= -MMD
-LMLX_FLAGS	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 LIBFT_DIR	= Libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-SRC			= 
+SRC			= so_long.c
 
 OBJ			= $(SRC:.c=.o)
 
@@ -16,25 +15,44 @@ DEPENDENCIES = $(OBJ:.o=.d)
 
 INCLUDES = -I . -I $(LIBFT_DIR) -I Utils
 
-all: $(LIBFT) $(NAME)
+UNAME_S := $(shell uname -s)
 
--include : $(DEPENDENCIES)
+ifeq ($(UNAME_S),Linux)
+    MLX_DIR    = mlx_linux
+    LMLX_FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+    INCLUDES   += -I/usr/include -Imlx_linux -03
+    MLX_EXEC   =
+else
+    MLX_DIR    = mlx
+    LMLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
+    INCLUDES   += -Imlx
+    MLX_EXEC   = libmlx.dylib
+endif
+
+all: $(LIBFT) mlx_compile $(NAME)
+
+-include $(DEPENDENCIES)
+
+mlx_compile:
+	$(MAKE) -C $(MLX_DIR)
+	cp $(MLX_DIR)/$(MLX_EXEC) .
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LMLX_FLAGS) -o $(NAME)
+	$(CC) $(C_FLAGS) $(OBJ) $(LIBFT) $(LMLX_FLAGS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(CPP_FLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(C_FLAGS) $(CPP_FLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -f $(OBJ) $(DEPENDENCIES)
 	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(MLX_EXEC)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
@@ -43,4 +61,4 @@ redo: re
 	make clean
 	clear
 
-.PHONY: all clean fclean re redo
+.PHONY: all clean fclean re redo mlx_compile

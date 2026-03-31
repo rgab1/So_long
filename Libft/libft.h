@@ -16,12 +16,17 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }				t_list;
 
+char	*get_next_line(int fd);
 int		ft_atoi_safe(const char *nptr, int *error);
 void	free_strings(char **strings);
 int		ft_atoi(const char *nptr);

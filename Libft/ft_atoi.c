@@ -15,6 +15,8 @@ static	int	ft_strlen_nbr(const char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	if (s[i] == '-' || s[i] == '+')
 		i++;
 	while (s[i] && (s[i] >= 48) && (s[i] <= 57))
@@ -35,6 +37,8 @@ static int	ft_skip_blanks(const char *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n'
 		|| s[i] == '\v' || s[i] == '\f' || s[i] == '\r')
@@ -51,10 +55,10 @@ int	ft_atoi(const char *nptr)
 
 	nptr += ft_skip_blanks(nptr);
 	sign = 1;
-	unit = 1;
 	total = 0;
+	unit = 1;
 	i = ft_strlen_nbr(nptr) - 1;
-	if (i < 0)
+	if (i < 0 || !nptr)
 		return (0);
 	while (i >= 0)
 	{

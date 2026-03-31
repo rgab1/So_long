@@ -27,15 +27,14 @@ int	ft_atoi_safe(const char *nptr, int *error)
 	int		sign;
 	int		i;
 
+	if (!nptr || !error)
+		return (0);
 	i = ft_skip_blanks(nptr);
 	result = 0;
 	sign = 1;
 	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
+		if (nptr[i++] == '-')
 			sign = -1;
-		i++;
-	}
 	if (nptr[i] < '0' || nptr[i] > '9')
 		*error = 1;
 	while (nptr[i] >= '0' && nptr[i] <= '9')
