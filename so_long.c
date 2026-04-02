@@ -62,6 +62,7 @@ int	main(void)
 			i++;
 			offset_i += SQUARE_LENGTH;
 		}
+		color = (color == BLUE ? RED : BLUE);
 		i = 0;
 		offset_i = 0;
 		offset_y += SQUARE_LENGTH;
