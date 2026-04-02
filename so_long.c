@@ -1,73 +1,46 @@
 #include <so_long.h>
 #include <mlx.h>
-#define SQUARE_LENGTH 50
-#define RED 0x00FF0000
-#define BLUE 0x000000FF
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	*win_init(void *mlx, char **map)
 {
-	char	*dst;
+	void	*mlx_win;
+	int		win_height;
+	int		win_width;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	win_height = (ft_tablen((void **)map) * SQUARE_LENGTH);
+	win_width = (ft_strlen(map[0]) * SQUARE_LENGTH);
+	mlx_win = mlx_new_window(mlx, win_width, win_height, "So_long");
+	return (mlx_win);
 }
 
-void	print_square(t_data *img, int offset_i, int offset_y, int color)
+t_data	img_init(void *mlx, char **map)
 {
-	int		i;
-	int		y;
+	t_data	img;
+	int		win_height;
+	int		win_width;
 
-	i = offset_i;
-	y = offset_y;
-	while (i < SQUARE_LENGTH + offset_i)
-	{
-		while (y < SQUARE_LENGTH + offset_y)
-			my_mlx_pixel_put(img, i, y++, color);
-		y = offset_y;
-		i++;
-	}
+	win_height = (ft_tablen((void **)map) * SQUARE_LENGTH);
+	win_width = (ft_strlen(map[0]) * SQUARE_LENGTH);
+	img.img = mlx_new_image(mlx, win_width, win_height);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+			&img.endian);
+	return (img);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	void	*mlx;
 	t_data	img;
 	void	*mlx_win;
-	int 	i;
-	int		y;
-	int		offset_i;
-	int		offset_y;
-	int		window_height;
-	int		window_length;
-	int		color;
+	char	**map;
 
-	color = BLUE;
-	i = 0;
-	y = 0;
-	offset_i = 0;
-	offset_y = 0;
-	window_height = 300;
-	window_length = 600;
+	if (ac != 2)
+		puterror("Invalid argument: expects exactly one argument\n", 10);
+	map = parsing(av);
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, window_length, window_height, "Hello world!");
-	img.img = mlx_new_image(mlx, window_length, window_height);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length
-			, &img.endian);
-	while (y < (window_length / SQUARE_LENGTH) / 2)
-	{
-		while (i < (window_length / SQUARE_LENGTH))
-		{
-			color = (color == BLUE ? RED : BLUE);
-			print_square(&img, offset_i, offset_y, color);
-			i++;
-			offset_i += SQUARE_LENGTH;
-		}
-		color = (color == BLUE ? RED : BLUE);
-		i = 0;
-		offset_i = 0;
-		offset_y += SQUARE_LENGTH;
-		y++;
-	}
+	mlx_win = win_init(mlx, map);
+	img = img_init(mlx, map);
+	print_map(&img, map);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 }

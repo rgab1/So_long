@@ -26,6 +26,8 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+size_t	ft_tablen(void **tab);
+void	puterror(char *error_msg, int exit_code);
 char	*get_next_line(int fd);
 int		ft_atoi_safe(const char *nptr, int *error);
 void	free_strings(char **strings);

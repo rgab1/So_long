@@ -7,7 +7,9 @@ CPP_FLAGS	= -MMD
 LIBFT_DIR	= Libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
-SRC			= so_long.c
+SRC			= so_long.c \
+			  Utils/parsing.c Utils/parsing_helper.c Utils/print_map.c \
+			  Utils/print_square.c Utils/my_mlx_pixel_put.c
 
 OBJ			= $(SRC:.c=.o)
 

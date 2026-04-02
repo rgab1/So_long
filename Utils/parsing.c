@@ -25,7 +25,9 @@ static void	count_stuff(char *map_str, t_map *map)
 	map->player_start = 0;
 	while (map_str[i])
 	{
-		if (map_str[i] == 'C')
+		if (map_str[i] == '\n')
+			i++;
+		else if (map_str[i] == 'C')
 			map->collect += 1;
 		else if (map_str[i] == 'E')
 			map->exit += 1;
@@ -38,6 +40,8 @@ static void	count_stuff(char *map_str, t_map *map)
 	map->map_2d = ft_split(map_str, '\n');
 	if (map->player_start != 1 || map->exit != 1)
 		puterror("Invalid map: Incorrect number of P or E\n", 7);
+	if (map->collect < 1)
+		puterror("Invalid map: No C on the map\n", 13);
 }
 
 static t_map	*read_map(char *map_name)
@@ -68,9 +72,9 @@ static t_map	*read_map(char *map_name)
 
 static void	map_walls_check(t_map *map)
 {
-	int i;
-	int	line_len;
-	int nbr_lines;
+	int		i;
+	size_t	line_len;
+	size_t	nbr_lines;
 
 	i = 0;
 	nbr_lines = ft_tablen((void **)map->map_2d);
@@ -106,7 +110,7 @@ char	**parsing(char **av)
 	map_walls_check(map);
 	x = 0;
 	y = 0;
-	fin_player_start(map->map_2d, &x, &y);
+	find_player_start(map->map_2d, &x, &y);
 	cpy = map_copy(map);
 	flood_fill(cpy, x, y);
 	if (cpy->collect != map->collect || cpy->exit != map->exit)

@@ -11,3 +11,4 @@
 10 means that there is more/less than one argument
 11 **DEBUG** means program got to find_player_position without any P
 12 means not all C or E are in reach from P
+13 means that there is no C on the map

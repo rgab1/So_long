@@ -1,6 +1,12 @@
 #include <so_long.h>
 #include <parsing_helper.h>
 
+void	free_map(t_map *map)
+{
+	free_strings(map->map_2d);
+	free(map);
+}
+
 t_map	*map_copy(t_map *map)
 {
 	t_map	*cpy;
@@ -20,7 +26,7 @@ t_map	*map_copy(t_map *map)
 	{
 		cpy->map_2d[i] = ft_strdup(map->map_2d[i]);
 		if (!cpy->map_2d[i])
-			return (free_map(cpy), puterror("Malloc failed\n", 6));
+			return (free_map(cpy), puterror("Malloc failed\n", 6), NULL);
 		i++;
 	}
 	cpy->map_2d[i] = NULL;
@@ -31,16 +37,16 @@ t_map	*map_copy(t_map *map)
 
 void	find_player_start(char **map, int *x, int *y)
 {
-	while (map[y])
+	while (map[*y])
 	{
-		x = 0;
-		while (map[y][x])
+		*x = 0;
+		while (map[*y][*x])
 		{
-			if (map[y][x] == 'P')
-				return (void);
-			x++;
+			if (map[*y][*x] == 'P')
+				return ;
+			*x += 1;
 		}
-		y++;
+		*y += 1;
 	}
 	puterror("DEBUG no P found\n", 11);
 }
