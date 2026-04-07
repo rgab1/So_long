@@ -1,5 +1,6 @@
 #include <so_long.h>
 #include <parsing_helper.h>
+#include <errors.h>
 
 void	free_map(t_map *map)
 {
@@ -14,19 +15,19 @@ t_map	*map_copy(t_map *map)
 
 	cpy = (t_map *)malloc(sizeof(t_map));
 	if (!cpy)
-		puterror("Malloc failed\n", 6);
+		return (free_map(map), puterror(ERROR_6, 6), NULL);
 	i = 0;
 	while (map->map_2d[i])
 		i++;
 	cpy->map_2d = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!cpy->map_2d)
-		puterror("Malloc failed\n", 6);
+		return (free_map(cpy), free_map(map), puterror(ERROR_6, 6), NULL);
 	i = 0;
 	while (map->map_2d[i])
 	{
 		cpy->map_2d[i] = ft_strdup(map->map_2d[i]);
 		if (!cpy->map_2d[i])
-			return (free_map(cpy), puterror("Malloc failed\n", 6), NULL);
+			return (free_map(cpy), free_map(map), puterror(ERROR_6, 6), NULL);
 		i++;
 	}
 	cpy->map_2d[i] = NULL;
@@ -35,20 +36,20 @@ t_map	*map_copy(t_map *map)
 	return (cpy);
 }
 
-void	find_player_start(char **map, int *x, int *y)
+void	find_player_start(t_map *map, int *x, int *y)
 {
-	while (map[*y])
+	while (map->map_2d[*y])
 	{
 		*x = 0;
-		while (map[*y][*x])
+		while (map->map_2d[*y][*x])
 		{
-			if (map[*y][*x] == 'P')
+			if (map->map_2d[*y][*x] == 'P')
 				return ;
 			*x += 1;
 		}
 		*y += 1;
 	}
-	puterror("DEBUG no P found\n", 11);
+	return (free_map(map), puterror(ERROR_11, 11));
 }
 
 void	flood_fill(t_map *cpy, int x, int y)

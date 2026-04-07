@@ -1,5 +1,6 @@
 #include <so_long.h>
 #include <mlx.h>
+#include <errors.h>
 
 void	*win_init(void *mlx, char **map)
 {
@@ -35,7 +36,7 @@ int	main(int ac, char **av)
 	char	**map;
 
 	if (ac != 2)
-		puterror("Invalid argument: expects exactly one argument\n", 10);
+		puterror(ERROR_10, 10);
 	map = parsing(av);
 	mlx = mlx_init();
 	mlx_win = win_init(mlx, map);

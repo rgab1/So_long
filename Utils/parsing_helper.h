@@ -11,7 +11,7 @@ typedef struct	s_map
 
 void	free_map(t_map *map);
 t_map	*map_copy(t_map *map);
-void	find_player_start(char **map, int *x, int *y);
+void	find_player_start(t_map *map, int *x, int *y);
 void	flood_fill(t_map *map, int x, int y);
 
 #endif

@@ -1,5 +1,6 @@
 #include <parsing_helper.h>
 #include <so_long.h>
+#include <errors.h>
 
 static int	file_error(char *map_name)
 {
@@ -8,10 +9,10 @@ static int	file_error(char *map_name)
 
 	name_len = ft_strlen(map_name);
 	if (ft_strncmp(map_name + (name_len - 4), ".ber", 4))
-		puterror("Invalid file: The file provided is not a .ber file\n", 3);
+		puterror(ERROR_3, 3);
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		puterror("Invalid file: The file provided does not exit\n", 4);
+		puterror(ERROR_4, 4);
 	return (fd);
 }
 
@@ -34,14 +35,14 @@ static void	count_stuff(char *map_str, t_map *map)
 		else if (map_str[i] == 'P')
 			map->player_start += 1;
 		else if (map_str[i] != '0' && map_str[i] != '1')
-			puterror("Invalid map: Invalid caracter in the provided map\n", 5);
+			return (free_map(map), puterror(ERROR_5, 5));
 		i++;
 	}
 	map->map_2d = ft_split(map_str, '\n');
 	if (map->player_start != 1 || map->exit != 1)
-		puterror("Invalid map: Incorrect number of P or E\n", 7);
+		return (free_map(map), puterror(ERROR_7, 7));
 	if (map->collect < 1)
-		puterror("Invalid map: No C on the map\n", 13);
+		return (free_map(map), puterror(ERROR_13, 13));
 }
 
 static t_map	*read_map(char *map_name)
@@ -54,7 +55,7 @@ static t_map	*read_map(char *map_name)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		puterror("Malloc failed\n", 6);
+		puterror(ERROR_6, 6);
 	fd = file_error(map_name);
 	line = get_next_line(fd);
 	map_str = NULL;
@@ -81,21 +82,21 @@ static void	map_walls_check(t_map *map)
 	line_len = ft_strlen(map->map_2d[0]);
 	while (map->map_2d[0][i])
 		if (map->map_2d[0][i++] != '1')
-			puterror("Invalid map: Map is not delimited by ones\n", 8);
+			return (free_map(map), puterror(ERROR_8, 8));
 	i = 0;
 	while (map->map_2d[i])
 	{
 		if (ft_strlen(map->map_2d[i]) != line_len)
-			puterror("Invalid map: Map is not rectangular\n", 9);
+			return (free_map(map), puterror(ERROR_9, 9));
 		else if (map->map_2d[i][0] != '1'
 				|| map->map_2d[i][line_len - 1] != '1')
-			puterror("Invalid map: Map is not delimited by ones\n", 8);
+			return (free_map(map), puterror(ERROR_8, 8));
 		i++;
 	}
 	i = 0;
 	while (map->map_2d[nbr_lines - 1][i])
 		if (map->map_2d[nbr_lines - 1][i++] != '1')
-			puterror("Invalid map: Map is not delimited by ones\n", 8);
+			return (free_map(map), puterror(ERROR_8, 8));
 }
 
 char	**parsing(char **av)
@@ -110,14 +111,11 @@ char	**parsing(char **av)
 	map_walls_check(map);
 	x = 0;
 	y = 0;
-	find_player_start(map->map_2d, &x, &y);
+	find_player_start(map, &x, &y);
 	cpy = map_copy(map);
 	flood_fill(cpy, x, y);
 	if (cpy->collect != map->collect || cpy->exit != map->exit)
-	{
-		free_map(cpy);
-		puterror("Invalid map: Cannot reach all C or E\n", 12);
-	}
+		return (free_map(cpy), free_map(map), puterror(ERROR_12, 12), NULL);
 	free_map(cpy);
 	temp = map->map_2d;
 	free(map);
