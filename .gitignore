@@ -1,5 +1,9 @@
 *.o
 *.d
 *.out
+mlx/*.*
+mlx_linux/*.*
+*.dylib
 so_long
 Libft/.git
+*.a
