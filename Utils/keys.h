@@ -3,6 +3,7 @@
 
 /* macOS (M2/Intel) Keycodes */
 # ifdef __APPLE__
+#  define K_MASK 0
 #  define K_ESC 53
 #  define K_W 13
 #  define K_A 0
@@ -15,6 +16,7 @@
 
 /* Linux (X11) Keycodes */
 # else
+#  define K_MASK 1L<<0
 #  define K_ESC 65307
 #  define K_W 119
 #  define K_A 97

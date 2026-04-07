@@ -116,7 +116,7 @@ char	**parsing(char **av)
 	if (cpy->collect != map->collect || cpy->exit != map->exit)
 	{
 		free_map(cpy);
-		puterror("Invalid map: Cannot reach all C and E\n", 12);
+		puterror("Invalid map: Cannot reach all C or E\n", 12);
 	}
 	free_map(cpy);
 	temp = map->map_2d;
