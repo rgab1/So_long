@@ -1,10 +1,9 @@
 #include <libft.h>
 
-void	puterror(char *s, int error_code)
+void	puterror(char *error_msg)
 {
-	if (!s)
+	if (!error_msg)
 		return ;
 	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(s, 2);
-	exit(error_code);
+	ft_putstr_fd(error_msg, 2);
 }

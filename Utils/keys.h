@@ -16,7 +16,7 @@
 
 /* Linux (X11) Keycodes */
 # else
-#  define K_MASK 1L<<0
+#  define K_MASK (1L<<0)
 #  define K_ESC 65307
 #  define K_W 119
 #  define K_A 97
@@ -27,5 +27,7 @@
 #  define K_LEFT 65361
 #  define K_RIGHT 65363
 # endif
+
+# define EVENT_KEYPRESS 2
 
 #endif

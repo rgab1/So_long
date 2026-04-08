@@ -9,7 +9,7 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 
 SRC			= so_long.c \
 			  Utils/parsing.c Utils/parsing_helper.c Utils/print_map.c \
-			  Utils/print_square.c Utils/my_mlx_pixel_put.c
+			  Utils/print_square.c Utils/my_mlx_pixel_put.c Utils/key_handling.c
 
 OBJ			= $(SRC:.c=.o)
 
@@ -52,6 +52,9 @@ clean:
 	rm -f $(OBJ) $(DEPENDENCIES)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
+
+do: all clean
+	clear
 
 fclean: clean
 	rm -f $(NAME) $(MLX_EXEC)

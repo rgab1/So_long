@@ -1,51 +1,45 @@
 #include <so_long.h>
+#include <mlx.h>
 #define WALL 0x00FF0000
 #define PATH 0x000000FF
 #define PLAYER_START 0x0000FF00
 #define COLLECTIBLE 0x00FF00FF
 #define EXIT 0x00FFFF00
 
-typedef struct s_print
+static void	choose_print(t_game *game, int x, int y)
 {
-	int	i;
-	int	y;
-	int	offset_i;
-	int	offset_y;
-}				t_print;
+	int	px;
+	int	py;
 
-static void	choose_print(t_data *img, char **map, t_print *data)
-{
-	if (map[data->y][data->i] == '1')
-		print_square(img, data->offset_i, data->offset_y, WALL);
-	else if (map[data->y][data->i] == '0')
-		print_square(img, data->offset_i, data->offset_y, PATH);
-	else if (map[data->y][data->i] == 'C')
-		print_square(img, data->offset_i, data->offset_y, COLLECTIBLE);
-	else if (map[data->y][data->i] == 'P')
-		print_square(img, data->offset_i, data->offset_y, PLAYER_START);
+	px = x * SQUARE_LENGTH;
+	py = y * SQUARE_LENGTH;
+	if (game->map[y][x] == '1')
+		print_square(&game->img, px, py, WALL);
+	else if (game->map[y][x] == '0')
+		print_square(&game->img, px, py, PATH);
+	else if (game->map[y][x] == 'C')
+		print_square(&game->img, px, py, COLLECTIBLE);
+	else if (game->map[y][x] == 'P')
+		print_square(&game->img, px, py, PLAYER_START);
 	else
-		print_square(img, data->offset_i, data->offset_y, EXIT);
+		print_square(&game->img, px, py, EXIT);
 }
 
-void	print_map(t_data *img, char **map)
+void	print_map(t_game *game)
 {
-	t_print	data;
+	int	x;
+	int	y;
 
-	data.i = 0;
-	data.y = 0;
-	data.offset_i = 0;
-	data.offset_y = 0;
-	while (map[data.y])
+	y = 0;
+	while (game->map[y])
 	{
-		while (map[data.y][data.i])
+		x = 0;
+		while (game->map[y][x])
 		{
-			choose_print(img, map, &data);
-			data.i++;
-			data.offset_i += SQUARE_LENGTH;
+			choose_print(game, x, y);
+			x++;
 		}
-		data.i = 0;
-		data.offset_i = 0;
-		data.offset_y += SQUARE_LENGTH;
-		data.y++;
+		y++;
 	}
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }

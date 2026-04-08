@@ -9,10 +9,10 @@ static int	file_error(char *map_name)
 
 	name_len = ft_strlen(map_name);
 	if (ft_strncmp(map_name + (name_len - 4), ".ber", 4))
-		puterror(ERROR_3, 3);
+		exit_error(ERROR_3, 3);
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		puterror(ERROR_4, 4);
+		exit_error(ERROR_4, 4);
 	return (fd);
 }
 
@@ -35,14 +35,14 @@ static void	count_stuff(char *map_str, t_map *map)
 		else if (map_str[i] == 'P')
 			map->player_start += 1;
 		else if (map_str[i] != '0' && map_str[i] != '1')
-			return (free_map(map), puterror(ERROR_5, 5));
+			return (free_map(map), exit_error(ERROR_5, 5));
 		i++;
 	}
 	map->map_2d = ft_split(map_str, '\n');
 	if (map->player_start != 1 || map->exit != 1)
-		return (free_map(map), puterror(ERROR_7, 7));
+		return (free_map(map), exit_error(ERROR_7, 7));
 	if (map->collect < 1)
-		return (free_map(map), puterror(ERROR_13, 13));
+		return (free_map(map), exit_error(ERROR_13, 13));
 }
 
 static t_map	*read_map(char *map_name)
@@ -55,7 +55,7 @@ static t_map	*read_map(char *map_name)
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
-		puterror(ERROR_6, 6);
+		exit_error(ERROR_6, 6);
 	fd = file_error(map_name);
 	line = get_next_line(fd);
 	map_str = NULL;
@@ -82,21 +82,21 @@ static void	map_walls_check(t_map *map)
 	line_len = ft_strlen(map->map_2d[0]);
 	while (map->map_2d[0][i])
 		if (map->map_2d[0][i++] != '1')
-			return (free_map(map), puterror(ERROR_8, 8));
+			return (free_map(map), exit_error(ERROR_8, 8));
 	i = 0;
 	while (map->map_2d[i])
 	{
 		if (ft_strlen(map->map_2d[i]) != line_len)
-			return (free_map(map), puterror(ERROR_9, 9));
+			return (free_map(map), exit_error(ERROR_9, 9));
 		else if (map->map_2d[i][0] != '1'
 				|| map->map_2d[i][line_len - 1] != '1')
-			return (free_map(map), puterror(ERROR_8, 8));
+			return (free_map(map), exit_error(ERROR_8, 8));
 		i++;
 	}
 	i = 0;
 	while (map->map_2d[nbr_lines - 1][i])
 		if (map->map_2d[nbr_lines - 1][i++] != '1')
-			return (free_map(map), puterror(ERROR_8, 8));
+			return (free_map(map), exit_error(ERROR_8, 8));
 }
 
 char	**parsing(char **av)
@@ -115,7 +115,7 @@ char	**parsing(char **av)
 	cpy = map_copy(map);
 	flood_fill(cpy, x, y);
 	if (cpy->collect != map->collect || cpy->exit != map->exit)
-		return (free_map(cpy), free_map(map), puterror(ERROR_12, 12), NULL);
+		return (free_map(cpy), free_map(map), exit_error(ERROR_12, 12), NULL);
 	free_map(cpy);
 	temp = map->map_2d;
 	free(map);

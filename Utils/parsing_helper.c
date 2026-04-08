@@ -15,19 +15,19 @@ t_map	*map_copy(t_map *map)
 
 	cpy = (t_map *)malloc(sizeof(t_map));
 	if (!cpy)
-		return (free_map(map), puterror(ERROR_6, 6), NULL);
+		return (free_map(map), exit_error(ERROR_6, 6), NULL);
 	i = 0;
 	while (map->map_2d[i])
 		i++;
 	cpy->map_2d = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!cpy->map_2d)
-		return (free_map(cpy), free_map(map), puterror(ERROR_6, 6), NULL);
+		return (free_map(cpy), free_map(map), exit_error(ERROR_6, 6), NULL);
 	i = 0;
 	while (map->map_2d[i])
 	{
 		cpy->map_2d[i] = ft_strdup(map->map_2d[i]);
 		if (!cpy->map_2d[i])
-			return (free_map(cpy), free_map(map), puterror(ERROR_6, 6), NULL);
+			return (free_map(cpy), free_map(map), exit_error(ERROR_6, 6), NULL);
 		i++;
 	}
 	cpy->map_2d[i] = NULL;
@@ -49,7 +49,7 @@ void	find_player_start(t_map *map, int *x, int *y)
 		}
 		*y += 1;
 	}
-	return (free_map(map), puterror(ERROR_11, 11));
+	return (free_map(map), exit_error(ERROR_11, 11));
 }
 
 void	flood_fill(t_map *cpy, int x, int y)
