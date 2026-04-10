@@ -16,7 +16,7 @@ static int	file_error(char *map_name)
 	return (fd);
 }
 
-static void	count_stuff(char *map_str, t_map *map)
+static void	count_stuff(char *map_str, t_game *map)
 {
 	int	i;
 
@@ -38,27 +38,27 @@ static void	count_stuff(char *map_str, t_map *map)
 			return (free_map(map), exit_error(ERROR_5, 5));
 		i++;
 	}
-	map->map_2d = ft_split(map_str, '\n');
+	map->map = ft_split(map_str, '\n');
 	if (map->player_start != 1 || map->exit != 1)
 		return (free_map(map), exit_error(ERROR_7, 7));
 	if (map->collect < 1)
 		return (free_map(map), exit_error(ERROR_13, 13));
 }
 
-static t_map	*read_map(char *map_name)
+static t_game	*read_map(char *map_name)
 {
-	t_map	*map;
+	t_game	*map;
 	int		fd;
 	char	*line;
 	char	*temp;
 	char	*map_str;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = (t_game *)ft_calloc(1, sizeof(t_game));
 	if (!map)
 		exit_error(ERROR_6, 6);
 	fd = file_error(map_name);
 	line = get_next_line(fd);
-	map_str = NULL;
+	map_str = ft_strdup("");
 	while (line)
 	{
 		temp = map_str;
@@ -68,56 +68,54 @@ static t_map	*read_map(char *map_name)
 	}
 	close(fd);
 	count_stuff(map_str, map);
-	return (map);
+	return (free(map_str), map);
 }
 
-static void	map_walls_check(t_map *map)
+static void	map_walls_check(t_game *map)
 {
 	int		i;
 	size_t	line_len;
 	size_t	nbr_lines;
 
 	i = 0;
-	nbr_lines = ft_tablen((void **)map->map_2d);
-	line_len = ft_strlen(map->map_2d[0]);
-	while (map->map_2d[0][i])
-		if (map->map_2d[0][i++] != '1')
+	nbr_lines = ft_tablen((void **)map->map);
+	line_len = ft_strlen(map->map[0]);
+	while (map->map[0][i])
+		if (map->map[0][i++] != '1')
 			return (free_map(map), exit_error(ERROR_8, 8));
 	i = 0;
-	while (map->map_2d[i])
+	while (map->map[i])
 	{
-		if (ft_strlen(map->map_2d[i]) != line_len)
+		if (ft_strlen(map->map[i]) != line_len)
 			return (free_map(map), exit_error(ERROR_9, 9));
-		else if (map->map_2d[i][0] != '1'
-				|| map->map_2d[i][line_len - 1] != '1')
+		else if (map->map[i][0] != '1'
+				|| map->map[i][line_len - 1] != '1')
 			return (free_map(map), exit_error(ERROR_8, 8));
 		i++;
 	}
 	i = 0;
-	while (map->map_2d[nbr_lines - 1][i])
-		if (map->map_2d[nbr_lines - 1][i++] != '1')
+	while (map->map[nbr_lines - 1][i])
+		if (map->map[nbr_lines - 1][i++] != '1')
 			return (free_map(map), exit_error(ERROR_8, 8));
 }
 
 char	**parsing(char **av)
 {
-	t_map	*map;
-	t_map	*cpy;
+	t_game	*map;
+	t_game	*cpy;
 	char	**temp;
-	int		x;
-	int		y;
 
 	map = read_map(av[1]);
 	map_walls_check(map);
-	x = 0;
-	y = 0;
-	find_player_start(map, &x, &y);
+	map->p_x = 0;
+	map->p_y = 0;
+	find_player_start(map);
 	cpy = map_copy(map);
-	flood_fill(cpy, x, y);
+	flood_fill(cpy, map->p_x, map->p_y);
 	if (cpy->collect != map->collect || cpy->exit != map->exit)
 		return (free_map(cpy), free_map(map), exit_error(ERROR_12, 12), NULL);
 	free_map(cpy);
-	temp = map->map_2d;
+	temp = map->map;
 	free(map);
 	return (temp);
 }

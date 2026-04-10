@@ -1,17 +1,10 @@
 #ifndef PARSING_HELPER_H
 # define PARSING_HELPER_H
+# include <so_long.h>
 
-typedef struct	s_map
-{
-	int		collect;
-	int		exit;
-	int		player_start;
-	char	**map_2d;
-}				t_map;
-
-void	free_map(t_map *map);
-t_map	*map_copy(t_map *map);
-void	find_player_start(t_map *map, int *x, int *y);
-void	flood_fill(t_map *map, int x, int y);
+void	free_map(t_game *map);
+t_game	*map_copy(t_game *map);
+void	find_player_start(t_game *map);
+void	flood_fill(t_game *map, int x, int y);
 
 #endif

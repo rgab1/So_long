@@ -2,65 +2,65 @@
 #include <parsing_helper.h>
 #include <errors.h>
 
-void	free_map(t_map *map)
+void	free_map(t_game *map)
 {
-	free_strings(map->map_2d);
+	free_strings(map->map);
 	free(map);
 }
 
-t_map	*map_copy(t_map *map)
+t_game	*map_copy(t_game *map)
 {
-	t_map	*cpy;
+	t_game	*cpy;
 	int		i;
 
-	cpy = (t_map *)malloc(sizeof(t_map));
+	cpy = (t_game *)malloc(sizeof(t_game));
 	if (!cpy)
 		return (free_map(map), exit_error(ERROR_6, 6), NULL);
 	i = 0;
-	while (map->map_2d[i])
+	while (map->map[i])
 		i++;
-	cpy->map_2d = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!cpy->map_2d)
+	cpy->map = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!cpy->map)
 		return (free_map(cpy), free_map(map), exit_error(ERROR_6, 6), NULL);
 	i = 0;
-	while (map->map_2d[i])
+	while (map->map[i])
 	{
-		cpy->map_2d[i] = ft_strdup(map->map_2d[i]);
-		if (!cpy->map_2d[i])
+		cpy->map[i] = ft_strdup(map->map[i]);
+		if (!cpy->map[i])
 			return (free_map(cpy), free_map(map), exit_error(ERROR_6, 6), NULL);
 		i++;
 	}
-	cpy->map_2d[i] = NULL;
+	cpy->map[i] = NULL;
 	cpy->exit = 0;
 	cpy->collect = 0;
 	return (cpy);
 }
 
-void	find_player_start(t_map *map, int *x, int *y)
+void	find_player_start(t_game *map)
 {
-	while (map->map_2d[*y])
+	while (map->map[map->p_y])
 	{
-		*x = 0;
-		while (map->map_2d[*y][*x])
+		map->p_x = 0;
+		while (map->map[map->p_y][map->p_x])
 		{
-			if (map->map_2d[*y][*x] == 'P')
+			if (map->map[map->p_y][map->p_x] == 'P')
 				return ;
-			*x += 1;
+			map->p_x += 1;
 		}
-		*y += 1;
+		map->p_y += 1;
 	}
 	return (free_map(map), exit_error(ERROR_11, 11));
 }
 
-void	flood_fill(t_map *cpy, int x, int y)
+void	flood_fill(t_game *cpy, int x, int y)
 {
-	if (cpy->map_2d[y][x] == '1' || cpy->map_2d[y][x] == 'V')
+	if (cpy->map[y][x] == '1' || cpy->map[y][x] == 'V')
 		return ;
-	if (cpy->map_2d[y][x] == 'C')
+	if (cpy->map[y][x] == 'C')
 		cpy->collect++;
-	else if (cpy->map_2d[y][x] == 'E')
+	else if (cpy->map[y][x] == 'E')
 		cpy->exit++;
-	cpy->map_2d[y][x] = 'V';
+	cpy->map[y][x] = 'V';
 	flood_fill(cpy, x + 1, y);
 	flood_fill(cpy, x - 1, y);
 	flood_fill(cpy, x, y + 1);

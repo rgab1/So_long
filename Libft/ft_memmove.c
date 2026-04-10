@@ -6,7 +6,7 @@
 /*   By: grivault <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 21:47:08 by grivault          #+#    #+#             */
-/*   Updated: 2025/11/23 09:49:27 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/10 21:11:58 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	const unsigned char	*source;
 	unsigned char		*destination;
 
-	if (dest == NULL && src == NULL)
+	if (dest == NULL || src == NULL)
 		return (NULL);
 	source = (const unsigned char *)src;
 	destination = (unsigned char *)dest;

@@ -24,6 +24,9 @@ typedef struct s_game
 	int		moves;
 	int		p_x;
 	int		p_y;
+	int		collect;
+	int		exit;
+	int		player_start;
 }				t_game;
 
 char	**parsing(char **av);

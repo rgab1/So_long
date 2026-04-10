@@ -21,13 +21,13 @@ all: $(NAME)
 $(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
 	swiftc $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz
 
-
-
+# This rule creates BOTH the .o and the .swiftmodule at the same time
 %.o: %.swift
-	swiftc $(OPTI) $(INC) -parse-as-library -c $< -o $@
+	swiftc $(OPTI) $(INC) -parse-as-library -c $< -o $@ -emit-module -module-name $(patsubst %.swift,%,$<)
 
-%.swiftmodule: %.swift
-	swiftc $(OPTI) $(INC) -parse-as-library -c $< -o $@ -emit-module -module-name $(patsubst %.swift,%,$<) -module-link-name $(patsubst %.swift,%,$<)
+# This rule now just ensures the .o exists (which was created above)
+%.swiftmodule: %.o
+	@touch $@
 
 clean:
 	rm -f $(NAME) $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
