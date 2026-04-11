@@ -2,6 +2,7 @@
 #include <mlx.h>
 #include <errors.h>
 #include <keys.h>
+#include <parsing_helper.h>
 
 static void	init_graphics(t_game *game)
 {
@@ -17,19 +18,19 @@ static void	init_graphics(t_game *game)
 			&game->img.endian);
 }
 
+
 int	main(int ac, char **av)
 {
-	t_game	game;
+	t_game	*game;
 
 	if (ac != 2)
 		exit_error(ERROR_10, 10);
-		
-	game.map = parsing(av);
-	game.mlx = mlx_init();
-	game.moves = 0;
-	init_graphics(&game);
-	print_map(&game);
-	mlx_hook(game.win, EVENT_KEYPRESS, K_MASK, key_handler, &game);
-	mlx_loop(game.mlx);
+	game = 	parsing(av);
+	game->mlx = mlx_init();
+	game->moves = 0;
+	init_graphics(game);
+	print_map(game);
+	mlx_hook(game->win, EVENT_KEYPRESS, K_MASK, key_handler, game);
+	mlx_loop(game->mlx);
 	return (0);
 }

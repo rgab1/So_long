@@ -21,6 +21,8 @@ static void	choose_print(t_game *game, int x, int y)
 		print_square(&game->img, px, py, COLLECTIBLE);
 	else if (game->map[y][x] == 'P')
 		print_square(&game->img, px, py, PLAYER_START);
+	else if ( game->map[y][x] == 'Z')
+		print_square(&game->img, px, py, PLAYER_START);
 	else
 		print_square(&game->img, px, py, EXIT);
 }

@@ -35,14 +35,14 @@ static void	count_stuff(char *map_str, t_game *map)
 		else if (map_str[i] == 'P')
 			map->player_start += 1;
 		else if (map_str[i] != '0' && map_str[i] != '1')
-			return (free_map(map), exit_error(ERROR_5, 5));
+			return (free_game(map), exit_error(ERROR_5, 5));
 		i++;
 	}
 	map->map = ft_split(map_str, '\n');
 	if (map->player_start != 1 || map->exit != 1)
-		return (free_map(map), exit_error(ERROR_7, 7));
+		return (free_game(map), exit_error(ERROR_7, 7));
 	if (map->collect < 1)
-		return (free_map(map), exit_error(ERROR_13, 13));
+		return (free_game(map), exit_error(ERROR_13, 13));
 }
 
 static t_game	*read_map(char *map_name)
@@ -82,28 +82,27 @@ static void	map_walls_check(t_game *map)
 	line_len = ft_strlen(map->map[0]);
 	while (map->map[0][i])
 		if (map->map[0][i++] != '1')
-			return (free_map(map), exit_error(ERROR_8, 8));
+			return (free_game(map), exit_error(ERROR_8, 8));
 	i = 0;
 	while (map->map[i])
 	{
 		if (ft_strlen(map->map[i]) != line_len)
-			return (free_map(map), exit_error(ERROR_9, 9));
+			return (free_game(map), exit_error(ERROR_9, 9));
 		else if (map->map[i][0] != '1'
 				|| map->map[i][line_len - 1] != '1')
-			return (free_map(map), exit_error(ERROR_8, 8));
+			return (free_game(map), exit_error(ERROR_8, 8));
 		i++;
 	}
 	i = 0;
 	while (map->map[nbr_lines - 1][i])
 		if (map->map[nbr_lines - 1][i++] != '1')
-			return (free_map(map), exit_error(ERROR_8, 8));
+			return (free_game(map), exit_error(ERROR_8, 8));
 }
 
-char	**parsing(char **av)
+t_game	*parsing(char **av)
 {
 	t_game	*map;
 	t_game	*cpy;
-	char	**temp;
 
 	map = read_map(av[1]);
 	map_walls_check(map);
@@ -113,9 +112,7 @@ char	**parsing(char **av)
 	cpy = map_copy(map);
 	flood_fill(cpy, map->p_x, map->p_y);
 	if (cpy->collect != map->collect || cpy->exit != map->exit)
-		return (free_map(cpy), free_map(map), exit_error(ERROR_12, 12), NULL);
-	free_map(cpy);
-	temp = map->map;
-	free(map);
-	return (temp);
+		return (free_game(cpy), free_game(map), exit_error(ERROR_12, 12), NULL);
+	free_game(cpy);
+	return (map);
 }
