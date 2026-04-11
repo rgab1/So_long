@@ -6,6 +6,8 @@ void	move_up(t_game *game)
 		return ;
 	if (game->map[game->p_y - 1][game->p_x] != '1')
 	{
+		check_collect(game, game->map[game->p_y - 1][game->p_x]);
+		check_exit(game, game->map[game->p_y - 1][game->p_x]);
 		if (game->map[game->p_y - 1][game->p_x] == 'E')
 			game->map[game->p_y - 1][game->p_x] = 'Z';
 		else
@@ -26,6 +28,8 @@ void	move_down(t_game *game)
 	return ;
 	if (game->map[game->p_y + 1][game->p_x] != '1')
 	{
+		check_collect(game, game->map[game->p_y + 1][game->p_x]);
+		check_exit(game, game->map[game->p_y + 1][game->p_x]);
 		if (game->map[game->p_y + 1][game->p_x] == 'E')
 			game->map[game->p_y + 1][game->p_x] = 'Z';
 		else
@@ -46,6 +50,8 @@ void	move_right(t_game *game)
 		return ;
 	if (game->map[game->p_y][game->p_x + 1] != '1')
 	{
+		check_collect(game, game->map[game->p_y][game->p_x + 1]);
+		check_exit(game, game->map[game->p_y][game->p_x + 1]);
 		if (game->map[game->p_y][game->p_x + 1] == 'E')
 			game->map[game->p_y][game->p_x + 1] = 'Z';
 		else
@@ -66,6 +72,8 @@ void	move_left(t_game *game)
 		return ;
 	if (game->map[game->p_y][game->p_x - 1] != '1')
 	{
+		check_collect(game, game->map[game->p_y][game->p_x - 1]);
+		check_exit(game, game->map[game->p_y][game->p_x - 1]);
 		if (game->map[game->p_y][game->p_x - 1] == 'E')
 			game->map[game->p_y][game->p_x - 1] = 'Z';
 		else

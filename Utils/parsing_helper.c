@@ -44,13 +44,7 @@ void	find_player_start(t_game *map)
 		while (map->map[map->p_y][map->p_x])
 		{
 			if (map->map[map->p_y][map->p_x] == 'P')
-			{
-				ft_putnbr_fd(map->p_y, 1);
-				ft_putstr_fd(" y ", 1);
-				ft_putnbr_fd(map->p_x, 1);
-				ft_putstr_fd(" x\n", 1);
 				return ;
-			}
 			map->p_x += 1;
 		}
 		map->p_y += 1;

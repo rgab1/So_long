@@ -2,7 +2,6 @@
 #include <mlx.h>
 #include <errors.h>
 #include <keys.h>
-#include <parsing_helper.h>
 
 static void	init_graphics(t_game *game)
 {
@@ -28,6 +27,7 @@ int	main(int ac, char **av)
 	game = 	parsing(av);
 	game->mlx = mlx_init();
 	game->moves = 0;
+	game->p_collect = 0;
 	init_graphics(game);
 	print_map(game);
 	mlx_hook(game->win, EVENT_KEYPRESS, K_MASK, key_handler, game);

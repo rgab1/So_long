@@ -25,10 +25,14 @@ typedef struct s_game
 	int		p_x;
 	int		p_y;
 	int		collect;
+	int		p_collect;
 	int		exit;
 	int		player_start;
 }				t_game;
 
+void	close_window(t_game *game);
+void	check_collect(t_game *game, char c);
+void	check_exit(t_game *game, char c);
 void	move_up(t_game *game);
 void	move_down(t_game *game);
 void	move_right(t_game *game);
