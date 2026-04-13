@@ -23,8 +23,8 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
     MLX_DIR    = mlx_linux
     LMLX_FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-    INCLUDES   += -I/usr/include -Imlx_linux -03
-    MLX_EXEC   =
+    INCLUDES   += -I/usr/include -Imlx_linux -O3
+    MLX_EXEC   = libmlx_Linux.a
 else
     MLX_DIR    = mlx
     LMLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit

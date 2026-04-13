@@ -6,7 +6,7 @@
 void	close_window(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
-	ft_putnbr_fd(game->move, 1);
+	ft_putnbr_fd(game->moves, 1);
 	ft_putstr_fd(" moves\n", 1);
 	free_game(game);
 	exit(0);
