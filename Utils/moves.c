@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moves.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/14 22:42:12 by gabinrivault      #+#    #+#             */
+/*   Updated: 2026/04/14 22:47:25 by gabinrivault     ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <so_long.h>
 
 void	move_up(t_game *game)
@@ -25,7 +37,7 @@ void	move_up(t_game *game)
 void	move_down(t_game *game)
 {
 	if (game->p_y >= (int)ft_tablen((void **)game->map) - 2)
-	return ;
+		return ;
 	if (game->map[game->p_y + 1][game->p_x] != '1')
 	{
 		check_collect(game, game->map[game->p_y + 1][game->p_x]);
@@ -87,4 +99,3 @@ void	move_left(t_game *game)
 		print_map(game);
 	}
 }
-

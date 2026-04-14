@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_helper.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/14 22:43:02 by gabinrivault      #+#    #+#             */
+/*   Updated: 2026/04/14 22:50:57 by gabinrivault     ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <so_long.h>
 #include <parsing_helper.h>
 #include <errors.h>
@@ -27,7 +39,8 @@ t_game	*map_copy(t_game *map)
 	{
 		cpy->map[i] = ft_strdup(map->map[i]);
 		if (!cpy->map[i])
-			return (free_game(cpy), free_game(map), exit_error(ERROR_6, 6), NULL);
+			return (free_game(cpy), free_game(map), exit_error(ERROR_6, 6),
+				NULL);
 		i++;
 	}
 	cpy->map[i] = NULL;

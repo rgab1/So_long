@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:38:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:38:35 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/14 22:52:06 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ static void	init_graphics(t_game *game)
 	win_width = (ft_strlen(game->map[0]) * SQUARE_LENGTH);
 	game->win = mlx_new_window(game->mlx, win_width, win_height, "So_long");
 	game->img.img = mlx_new_image(game->mlx, win_width, win_height);
-	game->img.addr = mlx_get_data_addr(game->img.img, 
-			&game->img.bits_per_pixel, &game->img.line_length, 
+	game->img.addr = mlx_get_data_addr(game->img.img,
+			&game->img.bits_per_pixel, &game->img.line_length,
 			&game->img.endian);
 }
-
 
 int	main(int ac, char **av)
 {
@@ -36,7 +35,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		exit_error(ERROR_10, 10);
-	game = 	parsing(av);
+	game = parsing(av);
 	game->mlx = mlx_init();
 	game->moves = 0;
 	game->p_collect = 0;

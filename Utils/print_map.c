@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/14 22:43:23 by gabinrivault      #+#    #+#             */
+/*   Updated: 2026/04/14 22:47:49 by gabinrivault     ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <so_long.h>
 #include <mlx.h>
 #define WALL 0x00FF0000
@@ -21,7 +33,7 @@ static void	choose_print(t_game *game, int x, int y)
 		print_square(&game->img, px, py, COLLECTIBLE);
 	else if (game->map[y][x] == 'P')
 		print_square(&game->img, px, py, PLAYER_START);
-	else if ( game->map[y][x] == 'Z')
+	else if (game->map[y][x] == 'Z')
 		print_square(&game->img, px, py, PLAYER_START);
 	else
 		print_square(&game->img, px, py, EXIT);
