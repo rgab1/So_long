@@ -16,7 +16,7 @@ OBJ			= $(SRC:.c=.o)
 
 DEPENDENCIES = $(OBJ:.o=.d)
 
-INCLUDES = -I . -I $(LIBFT_DIR) -I Utils
+INCLUDES = -I . -I $(LIBFT_DIR) -I Utils -I$(LIBFT_DIR)/Print/Printf_utils/.
 
 UNAME_S := $(shell uname -s)
 

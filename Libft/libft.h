@@ -15,6 +15,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <printf_utils.h>
+# include <stdarg.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -26,6 +28,7 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+int		ft_printf(const char *input, ...);
 void	exit_error(char *error_msg, int error_code);
 size_t	ft_tablen(void **tab);
 void	puterror(char *error_msg);

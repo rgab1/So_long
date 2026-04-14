@@ -1,6 +1,6 @@
 #include <so_long.h>
 
-void	print_square(t_data *img, int offset_i, int offset_y, int color)
+void	print_square(t_mlx *img, int offset_i, int offset_y, int color)
 {
 	int		i;
 	int		y;

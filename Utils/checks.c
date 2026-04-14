@@ -13,8 +13,8 @@ void	check_exit(t_game *game, char c)
 		if (game->p_collect == game->collect)
 		{
 			game->moves += 1;
-			close_window(game);
-			exit(0);
+			ft_printf("You managed to exit in %d moves!!!\n", game->moves);
+			close_window_and_exit(game);
 		}
 	}
 }

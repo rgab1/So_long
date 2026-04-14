@@ -3,11 +3,9 @@
 #include <so_long.h>
 #include <parsing_helper.h>
 
-void	close_window(t_game *game)
+void	close_window_and_exit(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
-	ft_putnbr_fd(game->moves, 1);
-	ft_putstr_fd(" moves\n", 1);
 	free_game(game);
 	exit(0);
 }
@@ -15,7 +13,7 @@ void	close_window(t_game *game)
 int	key_handler(int keycode, t_game *game)
 {
 	if (keycode == K_ESC)
-		close_window(game);
+		close_window_and_exit(game);
 	else if (keycode == K_W || keycode == K_UP)
 		move_up(game);
 	else if (keycode == K_A || keycode == K_LEFT)

@@ -44,4 +44,5 @@ void	print_map(t_game *game)
 		y++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	ft_printf("%d moves\n", game->moves);
 }
