@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:41:39 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:41:42 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/15 22:50:05 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 # define ERROR_11 "Bug: no P found in map\n"
 # define ERROR_12 "Invalid map: Cannot reach all C or E\n"
 # define ERROR_13 "Invalid map: No C on the map\n"
+# define ERROR_14 "Failed to load asset\n"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:43:23 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:47:49 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/15 23:17:04 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ static void	choose_print(t_game *game, int x, int y)
 	px = x * SQUARE_LENGTH;
 	py = y * SQUARE_LENGTH;
 	if (game->map[y][x] == '1')
-		print_square(&game->img, px, py, WALL);
+		print_wall(game, px, py);
 	else if (game->map[y][x] == '0')
-		print_square(&game->img, px, py, PATH);
+		print_floor(game, px, py);
 	else if (game->map[y][x] == 'C')
-		print_square(&game->img, px, py, COLLECTIBLE);
+		print_collectible(game, px, py);
 	else if (game->map[y][x] == 'P')
-		print_square(&game->img, px, py, PLAYER_START);
+		print_player(game, px, py);
 	else if (game->map[y][x] == 'Z')
-		print_square(&game->img, px, py, PLAYER_START);
+		print_player_exit(game, px, py);
 	else
-		print_square(&game->img, px, py, EXIT);
+		print_exit(game, px, py);
 }
 
 void	print_map(t_game *game)
@@ -55,6 +55,5 @@ void	print_map(t_game *game)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 	ft_printf("%d moves\n", game->moves);
 }
