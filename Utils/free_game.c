@@ -6,7 +6,7 @@
 /*   By: grivault <grivault@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 19:31:27 by grivault          #+#    #+#             */
-/*   Updated: 2026/04/16 19:31:28 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/16 22:43:54 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	free_game(t_game *game)
 			mlx_destroy_image(game->mlx, game->img.img);
 		if (game->win)
 			mlx_destroy_window(game->mlx, game->win);
+#ifndef __APPLE__
 		mlx_destroy_display(game->mlx);
+#endif
 		free(game->mlx);
 	}
 	free(game);

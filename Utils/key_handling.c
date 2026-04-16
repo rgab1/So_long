@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:41:52 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 19:21:33 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/16 22:34:33 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 #include <so_long.h>
 #include <parsing_helper.h>
 
-void	close_window_and_exit(t_game *game)
+int	close_window_and_exit(t_game *game)
 {
 	free_game(game);
-	exit(0);
+	return (exit(0), 0);
 }
 
 int	key_handler(int keycode, t_game *game)
 {
 	if (keycode == K_ESC)
-		close_window_and_exit(game);
+		return (close_window_and_exit(game));
 	else if (keycode == K_W || keycode == K_UP)
 		move_up(game);
 	else if (keycode == K_A || keycode == K_LEFT)

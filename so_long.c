@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:38:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 19:29:20 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/16 22:36:00 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	main(int ac, char **av)
 	print_map(game);
 	mlx_hook(game->win, EVENT_KEYPRESS, K_MASK,
 		(int (*)(void))(void *)key_handler, game);
+	mlx_hook(game->win, EVENT_DESTROY, 0,
+		(int (*)(void))(void *)close_window_and_exit, game);
 	mlx_loop(game->mlx);
 	return (0);
 }

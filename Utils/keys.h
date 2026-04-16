@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:42:02 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:46:37 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 22:33:50 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@
 # endif
 
 # define EVENT_KEYPRESS 2
+# define EVENT_DESTROY 17
 
 #endif
