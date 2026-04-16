@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:43:23 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/15 23:17:04 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 13:51:03 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void	print_map(t_game *game)
 		y++;
 	}
 	ft_printf("%d moves\n", game->moves);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }

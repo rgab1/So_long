@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:52:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/15 23:33:29 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 13:29:51 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <libft.h>
 # include <fcntl.h>
 # include <mlx.h>
-# define SQUARE_LENGTH 32
+# define SQUARE_LENGTH 16
 
 typedef struct s_mlx
 {
@@ -30,11 +30,11 @@ typedef struct s_mlx
 
 typedef struct s_assets
 {
-	void	*wall;
-	void	*player;
-	void	*collect;
-	void	*exit;
-	void	*floor;
+	t_mlx	wall;
+	t_mlx	player;
+	t_mlx	collect;
+	t_mlx	exit;
+	t_mlx	floor;
 }				t_assets;
 
 typedef struct s_game

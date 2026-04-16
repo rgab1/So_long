@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:38:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/15 23:02:34 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 14:54:26 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,29 @@ static void	init_graphics(t_game *game)
 			&game->img.endian);
 }
 
-void init_textures(t_game *game)
+static void	load_single_asset(t_game *game, t_mlx *asset, char *path)
 {
-    int w;
-    int h;
+	int	w;
+	int	h;
 
-	game->assets = (t_assets *)malloc(sizeof(t_assets));
-    game->assets->wall = mlx_xpm_file_to_image(game->mlx,
-			"Sprites/Bush_small.xpm", &w, &h);
-    game->assets->player = mlx_xpm_file_to_image(game->mlx,
-			"Sprites/Character_front.xpm", &w, &h);
-    game->assets->collect = mlx_xpm_file_to_image(game->mlx,
-			"Sprites/Chess.xpm", &w, &h);
-    game->assets->exit = mlx_xpm_file_to_image(game->mlx,
-			"Sprites/Wooden_sign.xpm", &w, &h);
-    game->assets->floor = mlx_xpm_file_to_image(game->mlx,
-			"Sprites/Green.xpm", &w, &h);
-    if (!game->assets->wall || !game->assets->player || !game->assets->collect
-			|| !game->assets->exit || !game->assets->floor)
-        exit_error(ERROR_14, 14);
+	asset->img = mlx_xpm_file_to_image(game->mlx, path, &w, &h);
+	if (!asset->img)
+		exit_error(ERROR_14, 14);
+	asset->addr = mlx_get_data_addr(asset->img, &asset->bits_per_pixel,
+			&asset->line_length, &asset->endian);
+}
+
+static void	init_textures(t_game *game)
+{
+	game->assets = (t_assets *)ft_calloc(1, sizeof(t_assets));
+	if (!game->assets)
+		exit_error(ERROR_6, 6);
+
+	load_single_asset(game, &game->assets->wall, "Sprites/Bush_small.xpm");
+	load_single_asset(game, &game->assets->player, "Sprites/Character.xpm");
+	load_single_asset(game, &game->assets->collect, "Sprites/Chess.xpm");
+	load_single_asset(game, &game->assets->exit, "Sprites/Wooden_sign.xpm");
+	load_single_asset(game, &game->assets->floor, "Sprites/Green.xpm");
 }
 
 int	main(int ac, char **av)

@@ -10,7 +10,8 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 SRC			= so_long.c \
 			  Utils/parsing.c Utils/parsing_helper.c Utils/print_map.c \
 			  Utils/print_square.c Utils/my_mlx_pixel_put.c \
-			  Utils/key_handling.c Utils/moves.c Utils/checks.c Utils/print_assets.c
+			  Utils/key_handling.c Utils/moves.c Utils/checks.c Utils/print_assets.c \
+			  Utils/print_assets_helper.c
 
 OBJ			= $(SRC:.c=.o)
 
