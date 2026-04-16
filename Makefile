@@ -1,7 +1,6 @@
 NAME		= so_long
 CC			= cc
 C_FLAGS		= -Wall -Wextra -Werror
-C_FLAGS		+= -Imlx
 CPP_FLAGS	= -MMD
 
 LIBFT_DIR	= Libft
@@ -11,7 +10,7 @@ SRC			= so_long.c \
 			  Utils/parsing.c Utils/parsing_helper.c Utils/print_map.c \
 			  Utils/print_square.c Utils/my_mlx_pixel_put.c \
 			  Utils/key_handling.c Utils/moves.c Utils/checks.c Utils/print_assets.c \
-			  Utils/print_assets_helper.c
+			  Utils/print_assets_helper.c Utils/free_game.c
 
 OBJ			= $(SRC:.c=.o)
 

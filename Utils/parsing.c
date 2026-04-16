@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:42:43 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:42:46 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 19:17:26 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	count_stuff(char *map_str, t_game *map)
 	while (map_str[i])
 	{
 		if (map_str[i] == '\n')
-			i++;
+			;
 		else if (map_str[i] == 'C')
 			map->collect += 1;
 		else if (map_str[i] == 'E')
@@ -76,6 +76,7 @@ static t_game	*read_map(char *map_name)
 		temp = map_str;
 		map_str = ft_strjoin(map_str, line);
 		free(temp);
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);

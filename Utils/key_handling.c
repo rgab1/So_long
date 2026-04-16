@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:41:52 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:41:54 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 19:21:33 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 void	close_window_and_exit(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->win);
 	free_game(game);
 	exit(0);
 }

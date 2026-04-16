@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grivault <grivault@learner.42.tech>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/16 19:31:27 by grivault          #+#    #+#             */
+/*   Updated: 2026/04/16 19:31:28 by grivault         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <so_long.h>
 
 void	free_game(t_game *game)
@@ -23,6 +35,8 @@ void	free_game(t_game *game)
 			mlx_destroy_image(game->mlx, game->img.img);
 		if (game->win)
 			mlx_destroy_window(game->mlx, game->win);
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
 	}
 	free(game);
 }

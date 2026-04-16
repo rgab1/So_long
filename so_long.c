@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:38:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 14:54:26 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 19:29:20 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	init_textures(t_game *game)
 	game->assets = (t_assets *)ft_calloc(1, sizeof(t_assets));
 	if (!game->assets)
 		exit_error(ERROR_6, 6);
-
 	load_single_asset(game, &game->assets->wall, "Sprites/Bush_small.xpm");
 	load_single_asset(game, &game->assets->player, "Sprites/Character.xpm");
 	load_single_asset(game, &game->assets->collect, "Sprites/Chess.xpm");
@@ -67,7 +66,8 @@ int	main(int ac, char **av)
 	init_graphics(game);
 	init_textures(game);
 	print_map(game);
-	mlx_hook(game->win, EVENT_KEYPRESS, K_MASK, key_handler, game);
+	mlx_hook(game->win, EVENT_KEYPRESS, K_MASK,
+		(int (*)(void))(void *)key_handler, game);
 	mlx_loop(game->mlx);
 	return (0);
 }

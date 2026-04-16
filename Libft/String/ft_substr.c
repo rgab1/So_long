@@ -6,7 +6,7 @@
 /*   By: grivault <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 18:52:29 by grivault          #+#    #+#             */
-/*   Updated: 2025/11/23 10:04:34 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/16 18:59:37 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	s_len;
 	size_t	actual_len;
 
-	if (!s || start < 0)
+	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
 	if (start >= s_len)

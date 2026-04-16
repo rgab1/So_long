@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:43:02 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/14 22:50:57 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/16 19:22:20 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,12 @@
 #include <parsing_helper.h>
 #include <errors.h>
 
-void	free_game(t_game *game)
-{
-	free_strings(game->map);
-	free(game);
-}
-
 t_game	*map_copy(t_game *map)
 {
 	t_game	*cpy;
 	int		i;
 
-	cpy = (t_game *)malloc(sizeof(t_game));
+	cpy = (t_game *)ft_calloc(1, sizeof(t_game));
 	if (!cpy)
 		return (free_game(map), exit_error(ERROR_6, 6), NULL);
 	i = 0;
