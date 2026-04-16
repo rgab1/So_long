@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:42:43 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 19:17:26 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/16 20:05:51 by grivault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static void	count_stuff(char *map_str, t_game *map)
 		else if (map_str[i] == 'P')
 			map->player_start += 1;
 		else if (map_str[i] != '0' && map_str[i] != '1')
-			return (free_game(map), exit_error(ERROR_5, 5));
+			return (free(map_str), free_game(map), exit_error(ERROR_5, 5));
 		i++;
 	}
 	map->map = ft_split(map_str, '\n');
 	if (map->player_start != 1 || map->exit != 1)
-		return (free_game(map), exit_error(ERROR_7, 7));
+		return (free(map_str), free_game(map), exit_error(ERROR_7, 7));
 	if (map->collect < 1)
-		return (free_game(map), exit_error(ERROR_13, 13));
+		return (free(map_str), free_game(map), exit_error(ERROR_13, 13));
 }
 
 static t_game	*read_map(char *map_name)
