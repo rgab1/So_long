@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:42:43 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 20:05:51 by grivault         ###   ########.fr       */
+/*   Updated: 2026/04/25 19:30:25 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 #include <so_long.h>
 #include <errors.h>
 
-static int	file_error(char *map_name)
+static int	file_error(char *map_name, t_game *game)
 {
 	int	name_len;
 	int	fd;
 
 	name_len = ft_strlen(map_name);
 	if (ft_strncmp(map_name + (name_len - 4), ".ber", 4))
-		exit_error(ERROR_3, 3);
+		return (free_game(game), exit_error(ERROR_3, 3), 0);
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		exit_error(ERROR_4, 4);
+		return (free_game(game), exit_error(ERROR_4, 4), 0);
 	return (fd);
 }
 
@@ -68,7 +68,7 @@ static t_game	*read_map(char *map_name)
 	map = (t_game *)ft_calloc(1, sizeof(t_game));
 	if (!map)
 		exit_error(ERROR_6, 6);
-	fd = file_error(map_name);
+	fd = file_error(map_name, map);
 	line = get_next_line(fd);
 	map_str = ft_strdup("");
 	while (line)

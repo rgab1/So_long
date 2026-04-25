@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:52:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 22:34:55 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/25 19:31:53 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_game
 	t_assets	*assets;
 }				t_game;
 
+void	free_game(t_game *game);
 int		close_window_and_exit(t_game *game);
 void	check_collect(t_game *game, char c);
 void	check_exit(t_game *game, char c);

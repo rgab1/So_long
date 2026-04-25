@@ -6,7 +6,7 @@
 /*   By: gabinrivault <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 22:38:30 by gabinrivault      #+#    #+#             */
-/*   Updated: 2026/04/16 22:36:00 by gabinrivault     ###   ########.fr       */
+/*   Updated: 2026/04/25 19:31:10 by gabinrivault     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	load_single_asset(t_game *game, t_mlx *asset, char *path)
 
 	asset->img = mlx_xpm_file_to_image(game->mlx, path, &w, &h);
 	if (!asset->img)
-		exit_error(ERROR_14, 14);
+		return (free_game(game), exit_error(ERROR_14, 14));
 	asset->addr = mlx_get_data_addr(asset->img, &asset->bits_per_pixel,
 			&asset->line_length, &asset->endian);
 }
